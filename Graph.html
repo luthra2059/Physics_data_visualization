@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Physics_data_visualization</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="utils.js"></script>
+    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        var datapoints = [5,7.5,15,17.5,22.5,25,32.5,40,58.5,73];
+        var Tangent1 = [5,5,6,6,6,6,6,7,7];
+        var Tangent2 = [null,null,null,null,null,null,null,10.2,40,73];
+		var config = {
+			type: 'line',
+			data: {
+				labels: [2.5,3,4.5,5,6,7.5,8.5,10,12.5,14],
+				datasets: [{
+					label: 'voltage-current ratio',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: datapoints,
+					fill: false,
+				}, {
+					label: 'Tangent-1',
+					fill: false,
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					data: Tangent1,
+                },{
+					label: 'Tangent-2',
+					fill: false,
+					backgroundColor: window.chartColors.yellow,
+					borderColor: window.chartColors.yellow,
+					data: Tangent2,
+				}
+            ]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Ionization Potential'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Voltage(V)'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Current(mA)'
+						}
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+		var colorNames = Object.keys(window.chartColors);
+        function render(){
+            datapoints[0]=document.getElementById("a1").value;
+            datapoints[1]=document.getElementById("a2").value;
+            datapoints[2]=document.getElementById("a3").value;
+            datapoints[3]=document.getElementById("a4").value;
+            datapoints[4]=document.getElementById("a5").value;
+			datapoints[5]=document.getElementById("a6").value;
+            datapoints[6]=document.getElementById("a7").value;
+            datapoints[7]=document.getElementById("a8").value;
+            datapoints[8]=document.getElementById("a9").value;
+            datapoints[9]=document.getElementById("a10").value;
+            Tangent1[0]=document.getElementById("a1").value;
+            Tangent1[1]=document.getElementById("a1").value;
+            Tangent1[2]=parseInt(document.getElementById("a1").value)+1;
+            Tangent1[3]=parseInt(document.getElementById("a1").value)+1;
+            Tangent1[4]=parseInt(document.getElementById("a1").value)+1;
+            Tangent1[5]=parseInt(document.getElementById("a1").value)+1;
+            Tangent1[6]=parseInt(document.getElementById("a1").value)+1;
+            Tangent1[7]=parseInt(document.getElementById("a1").value)+2;
+            Tangent1[8]=parseInt(document.getElementById("a1").value)+2;
+            Tangent1[9]=parseInt(document.getElementById("a1").value)+2;
+            Tangent2[7]=parseInt(document.getElementById("a1").value)+2;
+            Tangent2[8]=parseInt(document.getElementById("a9").value)+2;
+            Tangent2[9]=parseInt(document.getElementById("a10").value)+2;
+			window.myLine.update();
+        }
+	</script>
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand-md">
+        <div class="container-fluid"><a class="navbar-brand" href="#">Physics</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse text-left"
+                id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">About</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="Graph.html">Graph</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Summary.html">Summary</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <form>
+                    <div class="form-row register-form">
+                        <div class="col-md-8 offset-md-2">
+                            <form class="custom-form">
+                                <h1 class="text-center">Observations</h1><br>
+                                <table class="table">
+                                    <tr>
+                                        <th>Plate current in mA</th>
+                                        <th>Plate voltage in volts</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" id="v1" class="form-control" value="2.5" disabled></td>
+                                        <td><input type="text" id="a1" class="form-control" ></td>
+                                    </tr>
+                                    <tr>
+                                      <td><input type="text" id="v2" class="form-control" value="3" disabled></td>
+                                      <td><input type="text" id="a2" class="form-control"></td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="text" id="v3" class="form-control" value="4.5" disabled></td>
+                                      <td><input type="text" id="a3" class="form-control"></td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="text" id="v4" class="form-control" value="5" disabled></td>
+                                      <td><input type="text" id="a4" class="form-control"></td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="text" id="v5" class="form-control" value="6" disabled></td>
+                                      <td><input type="text" id="a5" class="form-control"></td>
+                                  </tr>
+								   <tr>
+                                      <td><input type="text" id="v6" class="form-control" value="7.5" disabled></td>
+                                      <td><input type="text" id="a6" class="form-control"></td>
+                                  </tr>
+								   <tr>
+                                      <td><input type="text" id="v7" class="form-control" value="8.5" disabled></td>
+                                      <td><input type="text" id="a7" class="form-control"></td>
+                                  </tr>
+								   <tr>
+                                      <td><input type="text" id="v8" class="form-control" value="10" disabled></td>
+                                      <td><input type="text" id="a8" class="form-control"></td>
+                                  </tr>
+								   <tr>
+                                      <td><input type="text" id="v9" class="form-control" value="12.5" disabled></td>
+                                      <td><input type="text" id="a9" class="form-control"></td>
+                                  </tr>
+								   <tr>
+                                      <td><input type="text" id="v10" class="form-control" value="14" disabled></td>
+                                      <td><input type="text" id="a10" class="form-control"></td>
+                                  </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </form><br>
+            </div>
+            <div class="col">
+                <div>
+                    <canvas id="canvas"></canvas>
+                    <button id="randomizeData" class="btn btn-light" onclick="render()">Render</button>
+                </div>
+            </div>
+        </div>
+    </div><footer id="footer">
+    <div style= "background: black; text-align: center; margin: 0px; padding:10px">
+        <p style= "color:grey; font-family: raleway">Copyright (c) Shubham Luthra & Srishti Gupta</p>
+    </div>
+</footer>
+</body>
+</html>
